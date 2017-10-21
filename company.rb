@@ -29,17 +29,18 @@ namespace '/v1' do
 		end
 	end
 
-	companies = {
+	$companies = {
 		"1234567890" => Company.new("1234567890", 'Test Inc.', 'Test Street 1', 'Aarhus', 'Denmark', '555-9999'),
 		"753159852" => Company.new("753159852", 'Nellictronix.', 'Best Way 2', 'Ankara', 'Turkey'),
 	}
 
 	get '/company' do
-		output = []
-		companies.each do |key, company|
-			output << company.name
-		end
-		return output.to_json
+		cvr = params['cvr']
+		if cvr
+			getDetails(cvr)
+		else 
+			getAll()
+		end		
 	end
 
 	post '/company' do
@@ -52,9 +53,16 @@ namespace '/v1' do
 		return "Stored company with cvr: " << newCompany.cvr
 	end
 
-	get '/company?:cvr' do
-		cvr = params['cvr']
-		company = companies[cvr]
+	def getAll()
+		output = []
+		$companies.each do |key, company|
+			output << company.name
+		end
+		return output.to_json
+	end
+
+	def getDetails(cvr)
+		company = $companies[cvr]
 		if !company
 			return 'Company with cvr = ' << cvr << ' not found.'
 		end
