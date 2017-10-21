@@ -3,9 +3,6 @@ require 'sinatra'
 require 'sinatra/namespace'
 require 'json'
 
-# TODO versionering
-# TODO fejltolerance?
-# TODO
 namespace '/v1' do
 
 	class Company
@@ -55,7 +52,7 @@ namespace '/v1' do
 		return "Stored company with cvr: " << newCompany.cvr
 	end
 
-	get '/company/:cvr' do
+	get '/company?:cvr' do
 		cvr = params['cvr']
 		company = companies[cvr]
 		if !company
