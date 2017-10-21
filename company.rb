@@ -33,7 +33,7 @@ namespace '/v1' do
 	end
 
 	companies = {
-		"1234567890" => Company.new("1234567890", 'Abell Inc.', 'Test Street 1', 'Aarhus', 'Denmark', '555-9999'),
+		"1234567890" => Company.new("1234567890", 'Test Inc.', 'Test Street 1', 'Aarhus', 'Denmark', '555-9999'),
 		"753159852" => Company.new("753159852", 'Nellictronix.', 'Best Way 2', 'Ankara', 'Turkey'),
 	}
 
