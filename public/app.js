@@ -68,7 +68,5 @@ restcompany.controller('mainController', ['$scope', '$http',
         alert("CREATE FAIL");
     }
 
-    // TODO consider update
-
     $scope.getCompanyList();
 }]);
