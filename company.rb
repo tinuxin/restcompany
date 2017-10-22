@@ -9,6 +9,8 @@ end
 
 namespace '/v1' do
 
+	$companies = {}
+
 	class Company
 		attr_reader :cvr, :name, :address, :city, :country, :phone
 
