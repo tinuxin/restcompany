@@ -13,10 +13,7 @@ restcompany.controller('mainController', ['$scope', '$http',
     $scope.phone;
 
     $scope.getCompanyDetails = function (cvr) {
-        $http.get('/v1/company', {
-            params: {
-                cvr: cvr
-            }}).then($scope.companyDetailsSucceeded, $scope.companyDetailsFailed);
+        $http.get('/v1/company/'+cvr, {}).then($scope.companyDetailsSucceeded, $scope.companyDetailsFailed);
     }
 
     $scope.companyDetailsSucceeded = function(response) {
