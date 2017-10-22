@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html ng-app="restcompany">
+<head>
+    <meta charset="utf-8">
+    <title>REST company</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+</head>
+
+<h1 class="header">
+    REST company
+</h1>
+<body ng-controller="mainController">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <div class="row">
+                    <div class="card">
+                        <h4 class="card-title">Companies</h4>
+                        <ul class="list-group card-body">
+                            <li ng-repeat="company in companies" ng-click="getCompanyDetails(company.cvr)" class="list-group-item" ng-class="{active: company.cvr==companyDetails.cvr}">
+                                {{company.name}}
+                                {{company.cvr}}
+                            </li>
+                        </ul>
+                        <div class="card-footer">
+                        <button ng-click="getCompanyList()" class="btn btn-primary">Refresh</button>
+                    </div>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <div ng-show="companyDetails" class="row top-buffer">
+                    <div class="card">
+                        <h4 class="card-title">Details for {{companyDetails.name}}</h4>
+                        <div class="container card-body">
+                            <div class="row">
+                                <label for="name">Name:</label>
+                                <span id="name">{{companyDetails.name}}</span>
+                            </div>
+                            <div class="row">
+                                <label for="cvr">CVR:</label>
+                                <span id="cvr">{{companyDetails.cvr}}</span>
+                            </div>
+                            <div class="row">
+                                <label for="address">Address:</label>
+                                <span id="address">{{companyDetails.address}}</span>
+                            </div>
+                            <div class="row">
+                                <label for="city">City:</label>
+                                <span id="city">{{companyDetails.city}}</span>
+                            </div>
+                            <div class="row">
+                                <label for="country">Country:</label>
+                                <span id="country">{{companyDetails.country}}</span>
+                            </div>
+                            <div class="row" ng-show="companyDetails.phone">
+                                <label for="phone">Phone:</label>
+                                <span id="phone">{{companyDetails.phone}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm">
+                <form ng-submit="companyCreate()">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" class="form-control" required ng-model="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="cvr">CVR</label>
+                        <input type="text" name="cvr" class="form-control" required ng-model="cvr">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" name="address" class="form-control" required ng-model="address">
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" name="city" class="form-control" required ng-model="city">
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <input type="text" name="country" class="form-control" required ng-model="country">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="text" name="phone" class="form-control" ng-model="phone">
+                    </div>
+                    <input type="submit" value="Submit company" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

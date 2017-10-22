@@ -3,6 +3,10 @@ require 'sinatra'
 require 'sinatra/namespace'
 require 'json'
 
+get '/' do
+  send_file File.join(settings.public_folder, 'index.html')
+end
+
 namespace '/v1' do
 
 	class Company
@@ -27,6 +31,13 @@ namespace '/v1' do
 				:phone => @phone
 			}
 		end
+
+		def to_hash_short
+			{
+				:cvr => @cvr, 
+				:name => @name
+			}
+		end
 	end
 
 	$companies = {
@@ -35,38 +46,34 @@ namespace '/v1' do
 	}
 
 	get '/company' do
+		output = []
+		$companies.each do |key, company|
+			output << company.to_hash_short
+		end
+		output.to_json
+	end
+
+	get '/company/:cvr' do
 		cvr = params['cvr']
-		if cvr
-			getDetails(cvr)
-		else 
-			getAll()
-		end		
+		company = $companies[cvr]
+		if !company
+			status 404
+			body 'Company with cvr = ' << cvr << ' not found.'
+		else
+			company.to_hash.to_json
+		end	
 	end
 
 	post '/company' do
 		request.body.rewind
 		companyJson = JSON.parse(request.body.read)
 
-		checkRequests(companyJson)
+		if !checkRequests(companyJson)
+			return
+		end
 		newCompany = Company.new(companyJson['cvr'], companyJson['name'], companyJson['address'], companyJson['city'], companyJson['country'], companyJson['phone'])
-		companies[newCompany.cvr] = newCompany
-		return "Stored company with cvr: " << newCompany.cvr
-	end
-
-	def getAll()
-		output = []
-		$companies.each do |key, company|
-			output << company.name
-		end
-		return output.to_json
-	end
-
-	def getDetails(cvr)
-		company = $companies[cvr]
-		if !company
-			return 'Company with cvr = ' << cvr << ' not found.'
-		end
-		company.to_hash.to_json
+		$companies[newCompany.cvr] = newCompany
+		status 204
 	end
 
 	def checkRequests(data)
@@ -80,7 +87,10 @@ namespace '/v1' do
 		end
 
 		if !missingKeys.empty?
-			return 'Invalid request. Missing keys: ' << missingKeys.join(',')
+			status 400
+			body 'Bad request. Missing keys: ' << missingKeys.join(',')
+			return false
 		end
+		return true
 	end
 end
