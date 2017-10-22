@@ -9,16 +9,16 @@ This repository is linked with Heroku and available at https://pure-river-43052.
 The API is versioned in the URL and is currently at /v1.
 The API exposes three services: 
 * GET /company - Returns a list of all companies
-	* eg. 'curl https://pure-river-43052.herokuapp.com/v1/company' - HTTP 200
+	* eg. 'curl https://pure-river-43052.herokuapp.com/v1/company' => HTTP 200
 
 * GET /company/{cvr} - Returns details of company with cvr = {cvr}
-	* eg. 'curl https://pure-river-43052.herokuapp.com/v1/company/12345674890' - HTTP 200
-	* eg. 'curl https://pure-river-43052.herokuapp.com/v1/company/NONEXISTINGCVR' - HTTP 404
+	* eg. 'curl https://pure-river-43052.herokuapp.com/v1/company/12345674890' => HTTP 200
+	* eg. 'curl https://pure-river-43052.herokuapp.com/v1/company/NONEXISTINGCVR' => HTTP 404
 
 * POST /company - Adds a new company with the included data. Takes a json object with the fields: name, cvr, address, city, country and phone. phone is optional
-	* eg. without phone - 'curl https://pure-river-43052.herokuapp.com -H "Content-Type: application/json" -X POST -d '{"cvr":"123", "name":"Test Company", "address": "Test Street", "city": "Test City", "country": "Test Country"}' - HTTP 204
-	* eg. with phone - 'curl https://pure-river-43052.herokuapp.com -H "Content-Type: application/json" -X POST -d '{"cvr":"123", "name":"Test Company", "address": "Test Street", "city": "Test City", "country": "Test Country", "phone": "555-5555"}' - HTTP 204
-	* eg. without cvr - 'curl https://pure-river-43052.herokuapp.com -H "Content-Type: application/json" -X POST -d '{"name":"Test Company", "address": "Test Street", "city": "Test City", "country": "Test Country", "phone": "555-5555"}' - HTTP 400
+	* eg. without phone - 'curl https://pure-river-43052.herokuapp.com -H "Content-Type: application/json" -X POST -d '{"cvr":"123", "name":"Test Company", "address": "Test Street", "city": "Test City", "country": "Test Country"}' => HTTP 204
+	* eg. with phone - 'curl https://pure-river-43052.herokuapp.com -H "Content-Type: application/json" -X POST -d '{"cvr":"123", "name":"Test Company", "address": "Test Street", "city": "Test City", "country": "Test Country", "phone": "555-5555"}' => HTTP 204
+	* eg. without cvr - 'curl https://pure-river-43052.herokuapp.com -H "Content-Type: application/json" -X POST -d '{"name":"Test Company", "address": "Test Street", "city": "Test City", "country": "Test Country", "phone": "555-5555"}' => HTTP 400
 
 
 
